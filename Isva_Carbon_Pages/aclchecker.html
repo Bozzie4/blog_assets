@@ -16,7 +16,6 @@ https://raw.githubusercontent.com/carbon-design-system/carbon-for-ibm-dotcom/mai
         href="https://1.www.s81c.com/common/carbon-for-ibm-dotcom/tag/v1/canary/plex.css"/>
   <link rel="stylesheet"
         href="https://1.www.s81c.com/common/carbon-for-ibm-dotcom/tag/v1/canary/grid.css"/>
-  <script type="module" src="https://1.www.s81c.com/common/carbon/web-components/tag/latest/accordion.min.js"></script>
   <script type="module" src="https://1.www.s81c.com/common/carbon/web-components/tag/latest/breadcrumb.min.js"></script>
   <script type="module" src="https://1.www.s81c.com/common/carbon/web-components/tag/latest/button.min.js"></script>
   <script type="module" src="https://1.www.s81c.com/common/carbon/web-components/tag/latest/checkbox.min.js"></script>
@@ -57,14 +56,13 @@ https://raw.githubusercontent.com/carbon-design-system/carbon-for-ibm-dotcom/mai
   <script type="module" src="https://1.www.s81c.com/common/carbon/web-components/tag/latest/toggle.min.js"></script>
   <script type="module" src="https://1.www.s81c.com/common/carbon/web-components/tag/latest/tooltip.min.js"></script>
   <script type="module" src="https://1.www.s81c.com/common/carbon/web-components/tag/latest/ui-shell.min.js"></script>
+  <script type="text/javascript" src="aznapi.js" defer></script>
 
   <style>
     h3 {
       margin-bottom: 1rem;
     }
   </style>
-
-  <script src="aznapi.js"></script>
 
 </head>
 <body>
@@ -88,20 +86,29 @@ https://raw.githubusercontent.com/carbon-design-system/carbon-for-ibm-dotcom/mai
 <div class="bx--grid">
   <div class="bx--row">
     <div class="bx--col-sm-4 bx--col-lg-12" style="margin: 6rem 0;">
-      <form id="form-login">
+      <form id="form-execute">
+        <bx-inline-notification id="notification" kind="error" hide-close-button title="API Call Failed" subtitle="Please correct below errors."></bx-inline-notification>
       <bx-form-item>
-        <bx-input>
+        <bx-input id="url" type="text" name="url" label-text="url" value="/aznapi">
           <span slot="label-text">Label text</span>
           <span slot="helper-text">Optional helper text</span>
+          <span slot="validity-message">URL is not valid</span>
+        </bx-input>
+        <bx-input id="data" type="text" name="data" label-text="data" value='{"user_name":"user1","permission_bits":"Tr","object_name":"/WebSEAL/cloudinit.verifyaccess.local-default/aznapi"}'>
+          <span slot="label-text">Data to sumbit</span>
+          <span slot="helper-text">Check the documentation</span>
           <span slot="validity-message">Something isn't right</span>
         </bx-input>
       </bx-form-item>
 
       <bx-form-item>
-        <bx-btn id="btn-execute">Log in</bx-btn>
+        <bx-btn id="btn-execute">Check</bx-btn>
       </bx-form-item>
       </form>
     </div>
+  </div>
+  <div class="bx--row">
+    <div id="result"></div>
   </div>
 </div>
 </body>
