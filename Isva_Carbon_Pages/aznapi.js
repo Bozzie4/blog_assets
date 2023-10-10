@@ -10,9 +10,7 @@ function postData(url = "", data = {}) {
           if (response.ok) {
             return response.json();
           } else {
-              //console.log("Response content " + response.text());
-              return response.json().then(function (text) {
-		            //throw json;
+              return response.text().then(function (text) {
 		            throw new Error(`HTTP error, status = ${response.status}, errorMessage = ${text}`);
               });
           }
@@ -56,7 +54,7 @@ const inputURL = document.getElementById('url');
 const inputUserName = document.getElementById('user_name');
 const inputObjectName = document.getElementById('object_name');
 const btnExecute = document.getElementById('btn-execute');
-const btnExecute = document.getElementById('btn-reset');
+const btnReset = document.getElementById('btn-reset');
 const _result = document.getElementById('result');
 
 let pristine;
@@ -148,10 +146,10 @@ const execute = () => {
 
 const reset = () => {
   notification.open = false;
-  inputUsername.invalid = false;
-  inputUsername.value = '';
+  inputUserName.invalid = false;
+  inputUserName.value = '';
   inputURL.invalid = false;
-  inputURL.value = '';
+  inputURL.value = '/aznapi';
   inputObjectName.invalid = false;
   inputObjectName.value = '';
   setPristine(true);
