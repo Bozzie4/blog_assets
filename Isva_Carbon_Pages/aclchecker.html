@@ -1,0 +1,126 @@
+<!--
+@license
+Copyright IBM Corp. 2020
+This source code is licensed under the Apache-2.0 license found in the
+LICENSE file in the root directory of this source tree.
+
+Copied from
+https://raw.githubusercontent.com/carbon-design-system/carbon-for-ibm-dotcom/main/packages/carbon-web-components/examples/codesandbox/cdn/index.html
+
+-->
+<html>
+<head>
+  <title>AZN API</title>
+  <meta charset="UTF-8" />
+  <link rel="stylesheet"
+        href="https://1.www.s81c.com/common/carbon-for-ibm-dotcom/tag/v1/canary/plex.css"/>
+  <link rel="stylesheet"
+        href="https://1.www.s81c.com/common/carbon-for-ibm-dotcom/tag/v1/canary/grid.css"/>
+  <script type="module" src="https://1.www.s81c.com/common/carbon/web-components/tag/latest/breadcrumb.min.js"></script>
+  <script type="module" src="https://1.www.s81c.com/common/carbon/web-components/tag/latest/button.min.js"></script>
+  <script type="module" src="https://1.www.s81c.com/common/carbon/web-components/tag/latest/checkbox.min.js"></script>
+  <script type="module" src="https://1.www.s81c.com/common/carbon/web-components/tag/latest/code-snippet.min.js"></script>
+  <script type="module" src="https://1.www.s81c.com/common/carbon/web-components/tag/latest/combo-box.min.js"></script>
+  <script type="module" src="https://1.www.s81c.com/common/carbon/web-components/tag/latest/content-switcher.min.js"></script>
+  <script type="module" src="https://1.www.s81c.com/common/carbon/web-components/tag/latest/copy-button.min.js"></script>
+  <script type="module" src="https://1.www.s81c.com/common/carbon/web-components/tag/latest/data-table.min.js"></script>
+  <script type="module" src="https://1.www.s81c.com/common/carbon/web-components/tag/latest/date-picker.min.js"></script>
+  <script type="module" src="https://1.www.s81c.com/common/carbon/web-components/tag/latest/dropdown.min.js"></script>
+  <script type="module" src="https://1.www.s81c.com/common/carbon/web-components/tag/latest/file-uploader.min.js"></script>
+  <script type="module" src="https://1.www.s81c.com/common/carbon/web-components/tag/latest/floating-menu.min.js"></script>
+  <script type="module" src="https://1.www.s81c.com/common/carbon/web-components/tag/latest/form.min.js"></script>
+  <script type="module" src="https://1.www.s81c.com/common/carbon/web-components/tag/latest/inline-loading.min.js"></script>
+  <script type="module" src="https://1.www.s81c.com/common/carbon/web-components/tag/latest/input.min.js"></script>
+  <script type="module" src="https://1.www.s81c.com/common/carbon/web-components/tag/latest/link.min.js"></script>
+  <script type="module" src="https://1.www.s81c.com/common/carbon/web-components/tag/latest/list.min.js"></script>
+  <script type="module" src="https://1.www.s81c.com/common/carbon/web-components/tag/latest/loading.min.js"></script>
+  <script type="module" src="https://1.www.s81c.com/common/carbon/web-components/tag/latest/modal.min.js"></script>
+  <script type="module" src="https://1.www.s81c.com/common/carbon/web-components/tag/latest/multi-select.min.js"></script>
+  <script type="module" src="https://1.www.s81c.com/common/carbon/web-components/tag/latest/notification.min.js"></script>
+  <script type="module" src="https://1.www.s81c.com/common/carbon/web-components/tag/latest/number-input.min.js"></script>
+  <script type="module" src="https://1.www.s81c.com/common/carbon/web-components/tag/latest/overflow-menu.min.js"></script>
+  <script type="module" src="https://1.www.s81c.com/common/carbon/web-components/tag/latest/pagination.min.js"></script>
+  <script type="module" src="https://1.www.s81c.com/common/carbon/web-components/tag/latest/progress-indicator.min.js"></script>
+  <script type="module" src="https://1.www.s81c.com/common/carbon/web-components/tag/latest/radio-button.min.js"></script>
+  <script type="module" src="https://1.www.s81c.com/common/carbon/web-components/tag/latest/search.min.js"></script>
+  <script type="module" src="https://1.www.s81c.com/common/carbon/web-components/tag/latest/select.min.js"></script>
+  <script type="module" src="https://1.www.s81c.com/common/carbon/web-components/tag/latest/skeleton-placeholder.min.js"></script>
+  <script type="module" src="https://1.www.s81c.com/common/carbon/web-components/tag/latest/skeleton-text.min.js"></script>
+  <script type="module" src="https://1.www.s81c.com/common/carbon/web-components/tag/latest/skip-to-content.min.js"></script>
+  <script type="module" src="https://1.www.s81c.com/common/carbon/web-components/tag/latest/slider.min.js"></script>
+  <script type="module" src="https://1.www.s81c.com/common/carbon/web-components/tag/latest/structured-list.min.js"></script>
+  <script type="module" src="https://1.www.s81c.com/common/carbon/web-components/tag/latest/tabs.min.js"></script>
+  <script type="module" src="https://1.www.s81c.com/common/carbon/web-components/tag/latest/tag.min.js"></script>
+  <script type="module" src="https://1.www.s81c.com/common/carbon/web-components/tag/latest/textarea.min.js"></script>
+  <script type="module" src="https://1.www.s81c.com/common/carbon/web-components/tag/latest/tile.min.js"></script>
+  <script type="module" src="https://1.www.s81c.com/common/carbon/web-components/tag/latest/toggle.min.js"></script>
+  <script type="module" src="https://1.www.s81c.com/common/carbon/web-components/tag/latest/tooltip.min.js"></script>
+  <script type="module" src="https://1.www.s81c.com/common/carbon/web-components/tag/latest/ui-shell.min.js"></script>
+  <script type="text/javascript" src="aznapi.js" defer></script>
+
+  <style>
+    h3 {
+      margin-bottom: 1rem;
+    }
+  </style>
+
+</head>
+<body>
+<bx-header aria-label="IBM Verify Access">
+  <bx-header-menu-button
+    button-label-active="Close menu"
+    button-label-inactive="Open menu"
+  ></bx-header-menu-button>
+  <bx-header-name href="javascript:void 0" prefix="IBM">Verify Access</bx-header-name>
+  <bx-header-nav menu-bar-label="IBM Verify Access">
+    <bx-header-menu menu-label="Documentation" trigger-content="Documentation">
+      <bx-header-menu-item href="https://www.ibm.com/docs/en/sva/10.0.6?topic=applications-authorization-rest-api">azn-decision v10.0.6</bx-header-menu-item>
+      <bx-header-menu-item href="https://www.ibm.com/docs/en/sva/10.0.5?topic=applications-authorization-rest-api">azn-decision v10.0.5</bx-header-menu-item>
+    </bx-header-menu>
+  </bx-header-nav>
+</bx-header>
+<div class="bx--grid">
+  <div class="bx--row">
+    <div class="bx--col-sm-4 bx--col-lg-12" style="margin: 6rem 0;">
+      <form id="form-execute">
+        <bx-inline-notification id="notification" kind="error" hide-close-button title="Cannot process this input" subtitle="Please correct below errors."></bx-inline-notification>
+      <bx-form-item>
+        <bx-input id="url" type="text" name="url" label-text="url" value="/aznapi" required="true">
+          <span slot="label-text">The url to the webseal azn-decision local app</span>
+          <span slot="helper-text">The url can be relative or absolute.</span>
+          <span slot="validity-message">URL is invalid</span>
+        </bx-input>
+      </bx-form-item><bx-form-item>
+        <bx-input id="user_name" type="text" name="user_name" label-text="username" value='user1' required="true">
+          <span slot="label-text">Username to use.  This is a required field</span>
+          <span slot="validity-message">Username is a required field</span>
+        </bx-input>
+      </bx-form-item><bx-form-item>
+        <bx-input id="permission_bits" type="text" name="permission_bits" label-text="permission bits" value='Tr'>
+          <span slot="label-text">Permissing bits.  Set to Tr for the most basic access.</span>
+          <span slot="validity-message">Permission bits is a required field</span>
+        </bx-input>
+      </bx-form-item><bx-form-item>
+        <bx-input id="user_attributes" type="text" name="user_attributes" label-text="user attributes" value=''>
+          <span slot="label-text">The attributes to map (key-value json).  For instance `{"AUTHENTICATION_LEVEL": "2"}`</span>
+          <span slot="validity-message">The user attributes entered are invalid.</span>
+        </bx-input>
+      </bx-form-item><bx-form-item>
+        <bx-input id="object_name" type="text" name="object_name" label-text="object name" value='/WebSEAL/cloudinit.verifyaccess.local-default/aznapi'>
+          <span slot="label-text">The resource to check.  This is the WebSEAL object name</span>
+          <span slot="validity-message">The resource url is invalid</span>
+        </bx-input>
+      </bx-form-item>
+      <bx-button-set>
+        <bx-btn id="btn-execute">Check</bx-btn>
+        <bx-btn id="btn-reset" kind="secondary">Reset</bx-btn>
+      </bx-button-set>
+      </form>
+    </div>
+  </div>
+  <div class="bx--row"><div class="bx--col-sm-4 bx--col-lg-12" style="margin: 6rem 0;">
+    <div id="result"></div>
+  </div></div>
+</div>
+</body>
+</html>
