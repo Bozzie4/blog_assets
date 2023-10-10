@@ -1,41 +1,22 @@
-// Example POST method implementation:
-/*
-async function postData(url = "", data = {}) {
-  // Default options are marked with *
-  const response = await fetch(url, {
-    method: "POST",
-    mode: "cors",
-    cache: "no-cache",
-    headers: {
-      "Content-Type": "application/json",
-      "Accept-Encoding": "gzip, deflate, br"
-    },
-    redirect: "error", // manual, *follow, error
-    body: JSON.stringify(data)
-  });
-  return response;
-}
-*/
-/*
-postData("/aznapi", {
-  "user_name": "user1",
-  "permission_bits": "Tr",
-  "object_name": "/WebSEAL/cloudinit.verifyaccess.local-default/aznapi"}).then((data) => {
-    console.log(data);
- });
-*/
 function postData(url = "", data = {}) {
       console.log(`Posting data to ${url}`);
       console.log('Posting :' + JSON.stringify(data));
+
       //const myRequest = new Request(url, {"method": "POST", "cache": "no-cache", 'body': JSON.stringify(data)});
-      const myRequest = new Request(url, {"method": "POST", "mode": "cors", "cache": "no-cache", "body": data, "headers": {"Content-Type": "application/json", "Accept-Encoding": "gzip, deflate, br"}});
+      const myRequest = new Request(url, {"method": "POST", "mode": "cors", "cache": "no-cache", "body": JSON.stringify(data), "headers": {"Content-Type": "application/json", "Accept-Encoding": "gzip, deflate, br"}});
 
       fetch(myRequest)
         .then((response) => {
-          if (!response.ok) {
-            throw new Error(`HTTP error, status = ${response.status}`);
+          if (response.ok) {
+            return response.json();
+          } else {
+              //console.log("Response content " + response.text());
+              return response.json().then(function (text) {
+		            //throw json;
+		            throw new Error(`HTTP error, status = ${response.status}, errorMessage = ${text}`);
+              });
           }
-          return response.json();
+
         })
         .then((text) => {
           renderResult(text);
@@ -47,21 +28,6 @@ function postData(url = "", data = {}) {
     }
 
 function renderResult(inputJSON) {
-    /*
-    const table = document.createElement("table");
-    // Create table header row using the extracted headers above.
-    let tr = table.insertRow(-1);                   // table row.
-
-    for (const [key, value] of Object.entries(inputJSON)) {
-        console.log(`${key}: ${value}`);
-        let tr = table.insertRow(-1);
-        let cell1 = tr.insertCell(-1);
-        cell1.innerHTML = key;
-        let cell2 = tr.insertCell(-1);
-        cell2.innerHTML = value;
-    }
-    _result.appendChild(table);
-    */
     let table = "<bx-table><bx-table-body>"
 
     for (const [key, value] of Object.entries(inputJSON)) {
@@ -87,7 +53,10 @@ function renderResult(inputJSON) {
 const notification = document.getElementById('notification');
 const form = document.getElementById('form-execute');
 const inputURL = document.getElementById('url');
+const inputUserName = document.getElementById('user_name');
+const inputObjectName = document.getElementById('object_name');
 const btnExecute = document.getElementById('btn-execute');
+const btnExecute = document.getElementById('btn-reset');
 const _result = document.getElementById('result');
 
 let pristine;
@@ -104,17 +73,32 @@ const setSubmitting = (value) => {
 };
 
 const setValidity = (errors = {}) => {
-  notification.open = 'url' in errors || 'password' in errors;
+  notification.open = 'url' in errors || 'user_name' in errors || 'object_name' in errors;
+  inputURL.invalid = 'url' in errors;
+  inputURL.validityMessage = errors.url;
+  inputUserName.invalid = 'user_name' in errors;
+  inputUserName.validityMessage = errors.user_name;
+  inputObjectName.invalid = 'object_name' in errors;
+  inputObjectName.validityMessage = errors.object_name;
+
 };
 
 const execute = () => {
   const formElement = document.querySelector("form");
   const namedFormFields = formElement.querySelectorAll("*[name]");
   var dictV = {};
-  namedFormFields.forEach((field) => {
+  var doPost = true;
+  try {
+      namedFormFields.forEach((field) => {
       let key = field.getAttribute('name');
       let value = field.value;
-      if(value==null){
+      if (key == 'user_attributes') {
+        if (value === null || value == '') {
+           console.log('Skipping empty '+key );
+        } else {
+          dictV[key] = JSON.parse(value);
+        }
+      } else if( value == null || value == ''){
          console.log('Skipping '+key );
       } else {
          //submittedFormValuesMap.set(key, value);
@@ -122,23 +106,61 @@ const execute = () => {
          console.log(key, value);
       }
      });
+     if (!dictV.url || dictV.url == '') {
+            throw Object.assign(new Error('The url is a required parameter'), {
+                errors: {
+                    url: 'url is a required parameter',
+        },
+       });
+     };
+     if (!dictV.user_name || dictV.user_name == '') {
+            throw Object.assign(new Error('Username is a required parameter'), {
+                errors: {
+                    user_name: 'Username is a required parameter',
+        },
+       });
+     };
+     if (!dictV.object_name || dictV.object_name == '') {
+            throw Object.assign(new Error('object_name is a required parameter'), {
+                errors: {
+                    object_name: 'object_name is a required parameter',
+        },
+       });
+     };
 
-  // Submits the form
-  setSubmitting(true);
-  postData(dictV['url'],dictV['data']);
-  /*
-  try {
-    postData(dictV['url'],dictV['data']);
-    setValidity();
+
   } catch ({ errors }) {
     setValidity(errors);
+    doPost = false;
   } finally {
     setSubmitting(false);
   }
-  */
+
+  const url = dictV['url'];
+  delete dictV.url; //prepare object so I can use it in the post.
+  // Submits the form
+  if (doPost) {
+    postData(url,dictV);
+  }
+
+
+};
+
+const reset = () => {
+  notification.open = false;
+  inputUsername.invalid = false;
+  inputUsername.value = '';
+  inputURL.invalid = false;
+  inputURL.value = '';
+  inputObjectName.invalid = false;
+  inputObjectName.value = '';
+  setPristine(true);
 };
 
 btnExecute.addEventListener('click', async () => {
   execute();
 });
 
+btnReset.addEventListener('click', () => {
+  reset();
+});
