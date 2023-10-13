@@ -33,6 +33,8 @@ function renderResult(inputJSON) {
         let _value = '';
         if (value === null) {
           _value = '';
+        } else if (typeof value == 'string') {
+          _value = value;
         } else if (typeof value === 'object' && Array.isArray(value)) {
           _value = value.join('<br>');
         } else {
