@@ -1,0 +1,13 @@
+http:
+  request:
+    method: "GET"
+    url:    "/junction1/index.html"
+    headers:
+      - name:  "User-Agent"
+        value: "curl"
+      - name:  "Host"
+        value: "www.ibm.com"
+credential:
+  attribute:
+    - name:  "AZN_CRED_PRINCIPAL_NAME"
+      value: "testuser"
